@@ -30,6 +30,8 @@ const int but4 = 5;
 const int but5 = 6;
 
 
+const int buzz = 8; //Digital pin for buzzer
+
 
 
 void capcreator() {
@@ -168,16 +170,16 @@ void loop() {
         Serial.println(sensorValue1);
         Serial.println(voltage);
 
-      if((lastvolt + 20) >= voltage) || (lastvolt - 20 <= voltage)){
-        similardist++;
-        if(similardist >= 4){
-          //Beep the buzzer for a few seconds. 
-          //Reset the coutner back to the original value (before the foul play) --> This goes off of the assumption that it is statistically incredibly low odds that 4 people will enter a room in the exact same way.:
-            counter = counter - similardist; 
-        }
-      }
+    //   if((((lastvolt + 20) >= voltage) || (lastvolt - 20 <= voltage))){
+    //     similardist++;
+    //     if(similardist >= 4){
+    //       //Beep the buzzer for a few seconds. 
+    //       //Reset the coutner back to the original value (before the foul play) --> This goes off of the assumption that it is statistically incredibly low odds that 4 people will enter a room in the exact same way.:
+    //         counter = counter - similardist; 
+    //     }
+    //   }
         
-       lastvolt = voltage;
+    //    lastvolt = voltage;
     }
 
     // Check if sensor 2 is triggered and enough time has passed since the last trigger
@@ -201,20 +203,17 @@ void loop() {
         Serial.println(voltage2);
        
 
-       if((lastvolt + 20) >= voltage) || (lastvolt - 20 <= voltage)){
-        similardist++;
-        if(similardist >= 4){
-          //Beep the buzzer for a few seconds. 
-          //Reset the coutner back to the original value (before the asshole):
-            counter = counter - similardist; 
-        }
-      }
-
-
-      lastvolt = voltage; 
-       
-    }
-
+    //  if((((lastvolt + 20) >= voltage) || (lastvolt - 20 <= voltage))){
+    //     similardist++;
+    //     if(similardist >= 4){
+    //       //Beep the buzzer for a few seconds. 
+    //       //Reset the coutner back to the original value (before the foul play) --> This goes off of the assumption that it is statistically incredibly low odds that 4 people will enter a room in the exact same way.:
+    //         counter = counter - similardist; 
+    //     }
+    //   }
+        
+    //    lastvolt = voltage;
+   }
 
 
     if(counter >= maxCap){
@@ -227,8 +226,10 @@ void loop() {
     
       if(spincounter == 0){
       digitalWrite(Motor_pin, HIGH);
+      digitalWrite(buzz, HIGH);
       delay(5000);
       digitalWrite(Motor_pin, LOW);
+      digitalWrite(buzz, LOW);
       spincounter++;//So that it doesn't redo multiple times.
       }
 
