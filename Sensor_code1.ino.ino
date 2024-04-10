@@ -39,10 +39,14 @@ void capcreator() {
   //Function whose purpose is to allow user to input how much they want the maximum capacity to be. They can increment/decrement by 1 or 10. Once they are done, they press the middle button to start. 
   bool isconfirmed = false;
 
+  lcd.print("Max Capacity?");
+  lcd.setCursor(0,1);
+  lcd.print("0");
 
   while (isconfirmed == false) {
     int copynum = maxCap;
-    lcd.clear();
+    lcd.setCursor(0,1);
+    lcd.print("");
 
     int counternum = 0;
     int state1 = digitalRead(but1);
@@ -128,18 +132,28 @@ void setup() {
     pinMode(sensorPin, INPUT); // Set sensor pin as input
     pinMode(sensorPin2, INPUT); // Set sensor pin 2 as input
 
-
     Serial.begin(9600); // Initialize serial communication
-   
+
+    //Set the max capacity to sit on top:
+    lcd.setCursor(0,0); 
+    lcd.print("Max Capacity: ");
+    lcd.setCursor(13,0);
+    lcd.print(maxCap);
     
 }
 
 
 void loop() {
 
+    
+    lcd.setCursor(0,0); 
+    lcd.print("Max Capacity: ");
+    lcd.setCursor(13,0);
+    lcd.print(maxCap);
+    lcd.setCursor(0,1);
   if(countertime == 0){
-    lcd.clear();
-    lcd.print("0");
+    lcd.setCursor(0,1);
+    lcd.print("Counter: 0");
     countertime++;
     
   }
@@ -150,7 +164,7 @@ void loop() {
    
 
     // Check if sensor 1 is triggered and enough time has passed since the last trigger
-    if (sensorValue1 > 100 && currentTime - lastTriggerTime1 >= 3000) {
+    if (sensorValue1 > 100 && sensorValue1 < 1300 && currentTime - lastTriggerTime1 >= 3000) {
         lastTriggerTime1 = currentTime; // Update last trigger time for sensor 1
         lastTriggerTime2 = currentTime; // Reset last trigger time for sensor 2
 
@@ -160,8 +174,9 @@ void loop() {
             voltage2 = sensorValue2 * (5.0 / 1023.0);
         }
 
-        lcd.clear();
-        lcd.setCursor(0, 0);
+        lcd.print("");
+        lcd.setCursor(0, 1);
+        lcd.print("");
         lcd.print("Counter: ");
         lcd.print(counter);
         Serial.print("Sensor 1 triggered! Counter: ");
@@ -183,7 +198,7 @@ void loop() {
     }
 
     // Check if sensor 2 is triggered and enough time has passed since the last trigger
-    if (sensorValue2 > 100 && currentTime - lastTriggerTime2 >= 3000) {
+    if (sensorValue2 > 100 && sensorValue2 < 1300 && currentTime - lastTriggerTime2 >= 3000) {
         lastTriggerTime2 = currentTime; // Update last trigger time for sensor 2
         lastTriggerTime1 = currentTime; // Reset last trigger time for sensor 1
 
@@ -192,8 +207,9 @@ void loop() {
             spincounter = 0;
         }
 
-        lcd.clear();
-        lcd.setCursor(0, 0);
+        lcd.print("");
+        lcd.setCursor(0, 1);
+        lcd.print("");
         lcd.print("Counter: ");
         lcd.print(counter);
         Serial.print("Sensor 2 triggered! Counter: ");
@@ -226,10 +242,10 @@ void loop() {
     
       if(spincounter == 0){
       digitalWrite(Motor_pin, HIGH);
-      digitalWrite(buzz, HIGH);
-      delay(5000);
+      tone(buzz, 330, 2500);
+      delay(2500);
       digitalWrite(Motor_pin, LOW);
-      digitalWrite(buzz, LOW);
+      noTone(buzz);
       spincounter++;//So that it doesn't redo multiple times.
       }
 
