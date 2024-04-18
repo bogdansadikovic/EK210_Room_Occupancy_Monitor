@@ -179,11 +179,11 @@ void loop() {
         lcd.print("");
         lcd.print("Counter: ");
         lcd.print(counter);
-        Serial.print("Sensor 1 triggered! Counter: ");
-        Serial.println(counter);
-        Serial.print("Sensor Value is: ");
-        Serial.println(sensorValue1);
-        Serial.println(voltage);
+        // Serial.print("Sensor 1 triggered! Counter: ");
+        // Serial.println(counter);
+        // Serial.print("Sensor Value is: ");
+        // Serial.println(sensorValue1);
+        // Serial.println(voltage);
 
     //   if((((lastvolt + 20) >= voltage) || (lastvolt - 20 <= voltage))){
     //     similardist++;
@@ -206,17 +206,17 @@ void loop() {
             counter--; // Decrement the counter
             spincounter = 0;
         }
-
-        lcd.print("");
+        lcd.clear(); //Clear the LCD after the no entry message!
+        //lcd.print("");
         lcd.setCursor(0, 1);
-        lcd.print("");
+        //lcd.print("");
         lcd.print("Counter: ");
         lcd.print(counter);
-        Serial.print("Sensor 2 triggered! Counter: ");
-        Serial.println(counter);
-        Serial.print("Sensor Value is: ");
-        Serial.println(sensorValue2);
-        Serial.println(voltage2);
+        // Serial.print("Sensor 2 triggered! Counter: ");
+        // Serial.println(counter);
+        // Serial.print("Sensor Value is: ");
+        // Serial.println(sensorValue2);
+        // Serial.println(voltage2);
        
 
     //  if((((lastvolt + 20) >= voltage) || (lastvolt - 20 <= voltage))){
@@ -231,7 +231,7 @@ void loop() {
     //    lastvolt = voltage;
    }
 
-
+  
     if(counter >= maxCap){
       lcd.clear();
       lcd.setCursor(0,0);
@@ -242,10 +242,10 @@ void loop() {
     
       if(spincounter == 0){
       digitalWrite(Motor_pin, HIGH);
-      tone(buzz, 330, 2500);
+      tone(buzz, 50, 2500); // Used to be 330 --> This is ideal sound
       delay(2500);
       digitalWrite(Motor_pin, LOW);
-      noTone(buzz);
+      digitalWrite(buzz, LOW);
       spincounter++;//So that it doesn't redo multiple times.
       }
 
@@ -264,6 +264,6 @@ void loop() {
     }
 
 
-    delay(800); //Delay so the program doesn't run too fast. 
+    delay(500); //Delay so the program doesn't run too fast. --> Last one used, 800.
     
 }
