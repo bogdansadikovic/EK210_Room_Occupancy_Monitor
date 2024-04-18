@@ -231,7 +231,7 @@ void loop() {
     //    lastvolt = voltage;
    }
 
-  
+
     if(counter >= maxCap){
       lcd.clear();
       lcd.setCursor(0,0);
@@ -242,8 +242,9 @@ void loop() {
     
       if(spincounter == 0){
       digitalWrite(Motor_pin, HIGH);
-      tone(buzz, 50, 2500); // Used to be 330 --> This is ideal sound
+      tone(buzz, 100, 2500); // Used to be 330 --> This is ideal sound
       delay(2500);
+      noTone(buzz);
       digitalWrite(Motor_pin, LOW);
       digitalWrite(buzz, LOW);
       spincounter++;//So that it doesn't redo multiple times.
